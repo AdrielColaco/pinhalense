@@ -1,0 +1,49 @@
+/* ============================================================
+   Pinhalense — Spacing, radii, shadows, layout
+   ============================================================ */
+
+:root {
+  /* ---- Spacing scale ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 98px;   /* the site's left/right page gutter */
+
+  /* ---- Layout ---- */
+  --page-gutter: 98px;
+  --content-max: 1170px;  /* inner content column width */
+  --frame-width: 1366px;  /* desktop design width */
+
+  /* ---- Radii ---- */
+  --radius-sm: 6px;
+  --radius-md: 10px;   /* buttons, badges, news cards */
+  --radius-lg: 15px;   /* machine / culture cards */
+  --radius-pill: 999px;
+
+  /* ---- Borders ---- */
+  --border-width: 1px;
+
+  /* ---- Shadows ---- */
+  --shadow-card: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+  --shadow-card-up: 0px -10px 20px 0px rgba(0, 0, 0, 0.2);
+  --shadow-strong: 0px 0px 20px 0px rgba(0, 0, 0, 0.5);
+  --shadow-soft: 0px 4px 14px 0px rgba(0, 0, 0, 0.08);
+
+  /* ---- The signature accent rule (eyebrow underline) ---- */
+  --rule-width: 60px;
+  --rule-height: 2px;
+
+  /* ---- Motion ---- */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1); /* @kind other */
+  --dur-fast: 150ms;  /* @kind other */
+  --dur-base: 250ms;  /* @kind other */
+  --dur-slow: 400ms;  /* @kind other */
+}

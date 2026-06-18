@@ -1,0 +1,253 @@
+// ============================================================
+// Pinhalense — Central de Manuais
+// Catalogue data + pure tree helpers (ported from the Claude
+// Design "Central de Manuais" prototype).
+// ============================================================
+
+export interface Manual {
+  id: string;
+  label: string;
+  version: string;
+  size: string;
+  year: number;
+}
+
+export interface Category {
+  id: string;
+  label: string;
+  children: Manual[];
+}
+
+export interface Culture {
+  id: string;
+  label: string;
+  image: string;
+  caption: string;
+  children: Category[];
+}
+
+export type CatalogNode =
+  | Culture
+  | Category
+  | Manual
+  | { children?: AnyNode[] };
+
+type AnyNode = {
+  id?: string;
+  label?: string;
+  image?: string;
+  caption?: string;
+  version?: string;
+  size?: string;
+  year?: number;
+  children?: AnyNode[];
+};
+
+const m = (
+  id: string,
+  label: string,
+  version: string,
+  size: string,
+  year: number,
+): Manual => ({ id, label, version, size, year });
+
+export const catalog: Culture[] = [
+  {
+    id: "cafe",
+    label: "Café",
+    image: "/assets/images/grains-seeds.jpg",
+    caption: "Colheita, beneficiamento e secagem em todo o ciclo do café.",
+    children: [
+      {
+        id: "colheitadeiras",
+        label: "Colheitadeiras",
+        children: [
+          m("p1000-evolution", "P1000 TR Evolution", "v4.2", "8.4 MB", 2024),
+          m("p1000-smart", "P1000 TR Smart", "v3.1", "7.1 MB", 2023),
+          m("k3-master", "K3 Master Autopropelida", "v2.0", "6.8 MB", 2022),
+        ],
+      },
+      {
+        id: "beneficiamento",
+        label: "Beneficiamento de Café",
+        children: [
+          m("drc-2", "Descascador DRC-2", "v1.4", "3.2 MB", 2023),
+          m("catador-visione", "Catador Eletrônico Visione", "v2.1", "5.0 MB", 2024),
+          m("lsc-500", "Lavador-Separador LSC-500", "v1.0", "2.6 MB", 2021),
+        ],
+      },
+      {
+        id: "secadores",
+        label: "Secadores",
+        children: [
+          m("sre-40", "Secador Rotativo SRE-40", "v3.0", "4.4 MB", 2023),
+          m("scv-30", "Secador de Coluna SCV-30", "v2.2", "3.9 MB", 2022),
+        ],
+      },
+      {
+        id: "trituradores",
+        label: "Trituradores Agrícolas",
+        children: [
+          m("tf-200", "Triturador Florestal TF-200", "v1.2", "2.1 MB", 2022),
+          m("tpl-140", "Triturador TPL-140", "v1.0", "1.8 MB", 2020),
+        ],
+      },
+    ],
+  },
+  {
+    id: "cacau",
+    label: "Cacau",
+    image: "/assets/images/coffee-field.jpg",
+    caption: "Quebra, despolpa e secagem para o processamento do cacau.",
+    children: [
+      {
+        id: "processamento-cacau",
+        label: "Processamento",
+        children: [
+          m("qc-2", "Quebrador de Cacau QC-2", "v1.1", "2.0 MB", 2022),
+          m("dp-5", "Despolpadora DP-5", "v1.3", "2.4 MB", 2023),
+        ],
+      },
+      {
+        id: "secadores-cacau",
+        label: "Secadores",
+        children: [m("ssh-12", "Secador Solar Híbrido SSH-12", "v1.0", "1.9 MB", 2021)],
+      },
+    ],
+  },
+  {
+    id: "cereais",
+    label: "Cereais",
+    image: "/assets/images/agriculture.jpg",
+    caption: "Limpeza, classificação e armazenagem de grãos e cereais.",
+    children: [
+      {
+        id: "limpeza",
+        label: "Limpeza e Seleção",
+        children: [
+          m("mlc-3", "Máquina de Limpeza MLC-3", "v2.0", "3.0 MB", 2023),
+          m("cg-10", "Classificadora Granulométrica CG-10", "v1.5", "2.7 MB", 2022),
+        ],
+      },
+      {
+        id: "armazenagem",
+        label: "Armazenagem",
+        children: [m("ec-12", "Elevador de Canecas EC-12", "v1.0", "1.6 MB", 2020)],
+      },
+    ],
+  },
+  {
+    id: "pimenta",
+    label: "Pimenta",
+    image: "/assets/images/work-culture.png",
+    caption: "Debulha e separação para o beneficiamento da pimenta.",
+    children: [
+      {
+        id: "processamento-pimenta",
+        label: "Processamento",
+        children: [
+          m("dbp-2", "Debulhadora de Pimenta DBP-2", "v1.2", "2.2 MB", 2022),
+          m("sd-4", "Separador Densimétrico SD-4", "v1.1", "2.0 MB", 2021),
+        ],
+      },
+    ],
+  },
+];
+
+export function getNode(path: string[]): AnyNode {
+  let n: AnyNode = { children: catalog };
+  for (const id of path) {
+    const next = (n.children || []).find((c) => c.id === id);
+    if (!next) return { children: [] };
+    n = next;
+  }
+  return n || { children: [] };
+}
+
+export function countLeaves(node: AnyNode | undefined): number {
+  if (!node || !node.children) return 1;
+  return node.children.reduce((a, c) => a + countLeaves(c), 0);
+}
+
+export function trailFor(path: string[]): string[] {
+  let acc: string[] = [];
+  const out: string[] = [];
+  path.forEach((id) => {
+    acc = [...acc, id];
+    out.push(getNode(acc).label || "");
+  });
+  return out;
+}
+
+export function subFor(node: AnyNode | undefined): string {
+  if (!node || !node.children) return "";
+  const isCulture = !!(node.children[0] && node.children[0].children);
+  const leaves = countLeaves(node);
+  return isCulture
+    ? node.children.length + " categorias · " + leaves + " manuais"
+    : leaves + (leaves === 1 ? " manual disponível" : " manuais disponíveis");
+}
+
+export interface Leaf extends Manual {
+  trail: string[];
+}
+
+export function leaves(): Leaf[] {
+  const out: Leaf[] = [];
+  catalog.forEach((cu) =>
+    (cu.children || []).forEach((cat) =>
+      (cat.children || []).forEach((p) => {
+        out.push({ ...p, trail: [cu.label, cat.label] });
+      }),
+    ),
+  );
+  return out;
+}
+
+export function norm(s: string | undefined): string {
+  return (s || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+}
+
+// ---- Client-side PDF generation (faithful port of the prototype) ----
+export function makePdf(title: string, subtitle: string, node: AnyNode): Blob {
+  const ascii = (s: string) =>
+    String(s).normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const esc = (s: string) =>
+    ascii(s).replace(/\\/g, "\\\\").replace(/\(/g, "\\(").replace(/\)/g, "\\)");
+  const meta =
+    "PDF " + (node.version || "") + "  -  " + (node.size || "") + "  -  " + (node.year || "");
+  const stream =
+    "BT 0.44 0.11 0.27 rg /F1 30 Tf 56 745 Td (" + esc(title) + ") Tj ET\n" +
+    "BT 0.33 0.34 0.36 rg /F1 13 Tf 56 712 Td (" + esc(subtitle) + ") Tj ET\n" +
+    "BT 0 0 0 rg /F1 11 Tf 56 668 Td (Manual de operacao e manutencao) Tj ET\n" +
+    "BT 0.33 0.34 0.36 rg /F1 10 Tf 56 650 Td (" + esc(meta) + ") Tj ET\n" +
+    "BT 0 0 0 rg /F1 10 Tf 56 110 Td (Pinhalense Maquinas Agricolas - Central de Manuais) Tj ET";
+  const objs = [
+    "<< /Type /Catalog /Pages 2 0 R >>",
+    "<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
+    "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>",
+    "<< /Length " + stream.length + " >>\nstream\n" + stream + "\nendstream",
+    "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>",
+  ];
+  let body = "%PDF-1.4\n";
+  const offs: number[] = [];
+  objs.forEach((o, i) => {
+    offs.push(body.length);
+    body += i + 1 + " 0 obj\n" + o + "\nendobj\n";
+  });
+  const xrefPos = body.length;
+  let xref = "xref\n0 " + (objs.length + 1) + "\n0000000000 65535 f \n";
+  offs.forEach((o) => {
+    xref += ("" + o).padStart(10, "0") + " 00000 n \n";
+  });
+  const trailer =
+    "trailer\n<< /Size " +
+    (objs.length + 1) +
+    " /Root 1 0 R >>\nstartxref\n" +
+    xrefPos +
+    "\n%%EOF";
+  return new Blob([body + xref + trailer], { type: "application/pdf" });
+}

@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/pinhalense-design-system-74ee6629-b15a-4b7a-8750-c538092be852/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/pinhalense-design-system-74ee6629-b15a-4b7a-8750-c538092be852/tokens/fig-tokens.css">
+<link rel="stylesheet" href="_ds/pinhalense-design-system-74ee6629-b15a-4b7a-8750-c538092be852/tokens/colors.css">
+<link rel="stylesheet" href="_ds/pinhalense-design-system-74ee6629-b15a-4b7a-8750-c538092be852/tokens/typography.css">
+<link rel="stylesheet" href="_ds/pinhalense-design-system-74ee6629-b15a-4b7a-8750-c538092be852/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/pinhalense-design-system-74ee6629-b15a-4b7a-8750-c538092be852/styles.css">
+<script src="_ds/pinhalense-design-system-74ee6629-b15a-4b7a-8750-c538092be852/_ds_bundle.js"></script>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#fff}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translate(-50%,10px)}to{opacity:1;transform:translate(-50%,0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+</style>
+</helmet>
+
+<div style="{{ rootVars }}">
+
+  <!-- ============ LOGIN ============ -->
+  <sc-if value="{{ showLogin }}" hint-placeholder-val="{{ true }}">
+    <div style="{{ loginWrap }}">
+
+      <sc-if value="{{ brandVisible }}">
+        <div style="flex:1;min-width:0;background:var(--gradient-hero);color:#fff;padding:56px 60px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden">
+          <div style="position:absolute;right:-80px;top:-60px;width:360px;height:360px;border-radius:50%;background:rgba(255,255,255,.06)"></div>
+          <div style="position:absolute;right:60px;bottom:-120px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.05)"></div>
+          <div style="position:relative;z-index:2">
+            <x-import component-from-global-scope="PinhalenseDesignSystem_74ee66.Logo" color="var(--branco)" height="30" hint-size="170px,34px"></x-import>
+          </div>
+          <div style="position:relative;z-index:2;max-width:440px">
+            <x-import component-from-global-scope="PinhalenseDesignSystem_74ee66.SectionLabel" tone="white" hint-size="auto,16px">Pinhalense · Pós-venda</x-import>
+            <h1 style="font-size:40px;font-weight:400;line-height:1.12;margin:18px 0 16px;color:#fff">Tudo o que você precisa para operar e manter suas <strong style="font-weight:700">máquinas Pinhalense</strong>.</h1>
+            <p style="margin:0;font-size:17px;line-height:1.6;color:rgba(255,255,255,.82)">Manuais de operação, manutenção e catálogos de peças de toda a linha — organizados por cultura e categoria.</p>
+          </div>
+          <div style="position:relative;z-index:2;display:flex;gap:40px;flex-wrap:wrap">
+            <div><div style="font-size:34px;font-weight:800;line-height:1">74+</div><div style="font-size:12px;opacity:.78;margin-top:5px;max-width:120px;line-height:1.4">anos de tecnologia em grãos</div></div>
+            <div><div style="font-size:34px;font-weight:800;line-height:1">2.140+</div><div style="font-size:12px;opacity:.78;margin-top:5px;max-width:130px;line-height:1.4">clientes ao redor do globo</div></div>
+            <div><div style="font-size:34px;font-weight:800;line-height:1">99+</div><div style="font-size:12px;opacity:.78;margin-top:5px;max-width:110px;line-height:1.4">países atendidos</div></div>
+          </div>
+        </div>
+      </sc-if>
+
+      <div style="flex:1;min-width:0;display:flex;align-items:center;justify-content:center;padding:40px 24px;background:#fff">
+        <div style="width:100%;max-width:400px">
+          <sc-if value="{{ isMobile }}">
+            <div style="margin-bottom:30px">
+              <x-import component-from-global-scope="PinhalenseDesignSystem_74ee66.Logo" color="var(--preto)" height="28" hint-size="160px,32px"></x-import>
+            </div>
+          </sc-if>
+          <x-import component-from-global-scope="PinhalenseDesignSystem_74ee66.SectionLabel" tone="brand" hint-size="auto,16px">Acesso à conta</x-import>
+          <h2 style="margin:16px 0 8px;font-size:28px;font-weight:700;color:var(--text-strong);line-height:1.1">Entre com seu e-mail</h2>
+          <p style="margin:0 0 28px;font-size:15px;line-height:1.6;color:var(--text-muted)">Enviaremos um link de acesso seguro. Sem senhas para lembrar.</p>
+
+          <label style="display:flex;flex-direction:column;gap:8px;font-family:var(--font-sans)">
+            <span style="font-size:14px;font-weight:600;color:var(--text-strong)">E-mail</span>
+            <input type="email" value="{{ email }}" onChange="{{ onEmail }}" onKeyDown="{{ onEmailKey }}" placeholder="seu@email.com.br" style="{{ emailInputStyle }}" style-focus="border:1px solid var(--vermelho);box-shadow:0 0 0 3px rgba(112,29,70,.14)" />
+            <sc-if value="{{ hasEmailError }}"><span style="font-size:13px;color:var(--tijolo);font-weight:500">{{ emailError }}</span></sc-if>
+          </label>
+
+          <x-import component-from-global-scope="PinhalenseDesignSystem_74ee66.Button" variant="primary" full-width="{{ true }}" disabled="{{ sending }}" on-click="{{ onSendLink }}" hint-size="100%,50px" style="width:100%;margin-top:22px;height:50px">{{ sendLabel }}</x-import>
+
+          <p style="margin:18px 0 0;font-size:13px;color:var(--text-muted);display:flex;align-items:center;gap:8px">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" strokeWidth="1.7"/><path d="M8 11V8a4 4 0 018 0v3" stroke="currentColor" strokeWidth="1.7" fill="none"/></svg>
+            O link de acesso expira em 15 minutos.
+          </p>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ CHECK EMAIL ============ -->
+  <sc-if value="{{ showCheck }}">
+    <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 24px;background:var(--cinza-2);font-family:var(--font-sans)">
+      <div style="width:100%;max-width:460px;background:#fff;border-radius:15px;box-shadow:var(--shadow-card);padding:44px 40px;animation:fadeIn .3s ease">
+        <div style="width:74px;height:74px;border-radius:999px;background:rgba(112,29,70,.1);display:flex;align-items:center;justify-content:center;color:var(--vermelho);margin-bottom:24px">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2.5" stroke="currentColor" strokeWidth="1.8"/><path d="M4 7.5l8 6 8-6" stroke="currentColor" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg>
+        </div>
+        <h2 style="margin:0 0 10px;font-size:26px;font-weight:700;color:var(--text-strong);line-height:1.15">Verifique seu e-mail</h2>
+        <p style="margin:0 0 28px;font-size:15px;line-height:1.65;color:var(--text-body)">Enviamos um link de acesso para <strong style="color:var(--text-strong)">{{ displayEmail }}</strong>. Abra o link para entrar — ele expira em 15 minutos.</p>
+
+        <x-import component-from-global-scope="PinhalenseDesignSystem_74ee66.Button" variant="primary" full-width="{{ true }}" on-click="{{ onOpenLink }}" hint-size="100%,50px" style="width:100%;height:50px">Abrir link de acesso</x-import>
+        <p style="margin:10px 0 0;text-align:center;font-size:12px;color:var(--text-muted)">simulação do clique no link recebido por e-mail</p>
+
+        <div style="height:1px;background:var(--cinza-3);margin:28px 0"></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+          <button onClick="{{ onResend }}" style="background:transparent;border:none;cursor:pointer;font-family:var(--font-sans);font-size:14px;font-weight:600;color:var(--text-body);padding:0">Reenviar e-mail</button>
+          <button onClick="{{ onBackToLogin }}" style="background:transparent;border:none;cursor:pointer;font-family:var(--font-sans);font-size:14px;font-weight:600;color:var(--vermelho);padding:0">Usar outro e-mail</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ AUTHENTICATING ============ -->
+  <sc-if value="{{ showAuth }}">
+    <div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;background:var(--cinza-2);font-family:var(--font-sans);text-align:center">
+      <div style="width:48px;height:48px;border:4px solid var(--cinza-3);border-top-color:var(--vermelho);border-radius:50%;animation:spin .8s linear infinite"></div>
+      <h3 style="margin:26px 0 8px;font-size:20px;font-weight:700;color:var(--text-strong)">Validando seu acesso…</h3>
+      <p style="margin:0;font-size:13px;color:var(--text-muted);font-family:ui-monospace,SFMono-Regular,Menlo,monospace">GET /auth/callback?token=•••••••••••••</p>
+    </div>
+  </sc-if>
+
+  <!-- ============ APP ============ -->
+  <sc-if value="{{ showApp }}">
+    <div style="min-height:100vh;display:flex;flex-direction:column;background:#fff;font-family:var(--font-sans);color:var(--text-body)">
+
+      <!-- HEADER -->
+      <header style="position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid var(--cinza-3)">
+        <div style="{{ headerInner }}">
+          <div style="display:flex;align-items:center;gap:18px;min-width:0">
+            <span onClick="{{ goHome }}" style="display:inline-flex;cursor:pointer">
+              <x-import component-from-global-scope="PinhalenseDesignSystem_74ee66.Logo" color="var(--preto)" height="28" hint-size="160px,30px"></x-import>
+            </span>
+            <sc-if value="{{ notMobile }}">
+              <span style="width:1px;height:26px;background:var(--cinza-3)"></span>
+              <span style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Central de Manuais</span>
+            </sc-if>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px">
+            <div style="width:36px;height:36px;border-radius:999px;background:var(--vermelho);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0">{{ initials }}</div>
+            <sc-if value="{{ notMobile }}">
+              <div style="display:flex;flex-direction:column;line-height:1.25;margin-right:4px">
+                <span style="font-size:11px;color:var(--text-muted)">Conectado</span>
+                <span style="font-size:13px;font-weight:600;color:var(--text-strong)">{{ displayEmail }}</span>
+              </div>
+            </sc-if>
+            <x-import component-from-global-scope="PinhalenseDesignSystem_74ee66.Button" variant="outline" size="sm" on-click="{{ logout }}" hint-size="auto,38px">Sair</x-import>
+          </div>
+        </div>
+      </header>
+
+      <!-- HERO (home) -->
+      <sc-if value="{{ isHome }}">
+        <section style="{{ heroStyle }}">
+          <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.86) 0%,rgba(0,0,0,.6) 42%,rgba(0,0,0,.18) 100%)"></div>
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,.35) 100%)"></div>
+          <div style="{{ heroContent }}">
+            <x-import component-from-global-scope="PinhalenseDesignSystem_74ee66.SectionLabel" tone="white" hint-size="auto,16px">Biblioteca técnica</x-import>
+            <h1 style="{{ h1Hero }}">Manuais e catálogos de toda a <strong style="font-weight:700">linha Pinhalense</strong>.</h1>
+            <p style="{{ heroP }}">Busque pelo nome da máquina ou navegue pelas culturas para baixar o manual em PDF.</p>
+            <div style="{{ heroSearchWrap }}">
+              <div style="display:flex;align-items:center;gap:12px;height:56px;padding:0 20px;border-radius:10px;background:#fff;box-shadow:var(--shadow-card)" style-focus-within="box-shadow:0 0 0 3px rgba(112,29,70,.25),var(--shadow-card)">
+                <span style="color:var(--cinza-texto);display:inline-flex"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg></span>
+                <input value="{{ query }}" onChange="{{ onSearch }}" placeholder="Buscar manual (ex: P1000, secador, DRC, cacau)…" style="flex:1;min-width:0;border:none;outline:none;background:transparent;font-family:var(--font-sans);font-size:16px;color:var(--text-strong)" />
+                <sc-if value="{{ hasQuery }}"><button onClick="{{ clearSearch }}" aria-label="Limpar" style="border:none;background:var(--cinza-3);color:var(--cinza-escuro);width:26px;height:26px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"/></svg></button></sc-if>
+              </div>
+            </div>
+          </div>
+        </section>
+      </sc-if>
+
+      <!-- SUBHEADER (inner) -->
+      <sc-if value="{{ isInner }}">
+        <div style="background:var(--cinza-2);border-bottom:1px solid var(--cinza-3)">
+          <div style="{{ subheadContent }}">
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);margin-bottom:18px">
+              <sc-for list="{{ crumbs }}" as="cr" hint-placeholder-count="2">
+                <sc-if value="{{ cr.showSep }}"><span aria-hidden="true" style="opacity:.45">›</span></sc-if>
+                <sc-if value="{{ cr.clickable }}"><span onClick="{{ cr.onClick }}" style="cursor:pointer;color:inherit" style-hover="color:var(--vermelho)">{{ cr.label }}</span></sc-if>
+                <sc-if value="{{ cr.plain }}"><span style="color:var(--text-strong);font-weight:600">{{ cr.label }}</span></sc-if>
+              </sc-for>
+            </div>
+            <div style="{{ innerHeadRow }}">
+              <div style="min-width:0">
+                <button onClick="{{ onBack }}" style="display:inline-flex;align-items:center;gap:6px;background:transparent;border:none;cursor:pointer;font-family:var(--font-sans);font-size:14px;font-weight:600;color:var(--vermelho);padding:0;margin-bottom:10px">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>Voltar
+                </button>
+                <h1 style="{{ innerTitle }}">{{ currentLabel }}</h1>
+                <p style="margin:6px 0 0;font-size:14px;color:var(--text-muted)">{{ currentSub }}</p>
+              </div>
+              <div style="{{ innerSearchWrap }}">
+                <div style="display:flex;align-items:center;gap:10px;height:46px;padding:0 16px;border-radius:10px;background:#fff;border:1px solid var(--cinza-borda)" style-focus-within="border-color:var(--vermelho);box-shadow:0 0 0 3px rgba(112,29,70,.12)">
+                  <span style="color:var(--cinza-texto);display:inline-flex"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg></span>
+                  <input value="{{ query }}" onChange="{{ onSearch }}" placeholder="Buscar em todos os manuais…" style="flex:1;min-width:0;border:none;outline:none;background:transparent;font-family:var(--font-sans);font-size:15px;color:var(--text-strong)" />
+                  <sc-if value="{{ hasQuery }}"><button onClick="{{ clearSearch }}" aria-label="Limpar" style="border:none;background:var(--cinza-3);color:var(--cinza-escuro);width:24px;height:24px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"/></svg></button></sc-if>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- MAIN -->
+      <main style="flex:1">
+
+        <!-- SEARCH RESULTS -->
+        <sc-if value="{{ showResults }}">
+          <div style="{{ sectionWrap }}">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:22px">
+              <h2 style="margin:0;font-size:20px;font-weight:700;color:var(--text-strong)">{{ resultsHeading }}</h2>
+              <sc-if value="{{ searching }}"><div style="width:18px;height:18px;border:2.5px solid var(--cinza-3);border-top-color:var(--vermelho);border-radius:50%;animation:spin .7s linear infinite"></div></sc-if>
+            </div>
+
+            <sc-if value="{{ hasResults }}">
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <sc-for list="{{ results }}" as="r" hint-placeholder-count="3">
+                  <div style="display:flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--cinza-3);border-radius:10px;padding:14px 16px">
+                    <div style="width:50px;height:50px;border-radius:10px;background:rgba(112,29,70,.08);color:var(--vermelho);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M7 3h7l5 5v12a1 1 0 01-1 1H7a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" strokeWidth="1.7" fill="none"/><path d="M14 3v5h5" stroke="currentColor" strokeWidth="1.7" fill="none"/></svg>
+                    </div>
+                    <div style="flex:1;min-width:0">
+                      <div style="font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--text-muted);margin-bottom:3px">{{ r.path }}</div>
+                      <div style="font-size:16px;font-weight:700;color:var(--text-strong)">{{ r.title }}</div>
+                      <div style="font-size:12px;color:var(--text-muted);margin-top:2px">{{ r.meta }}</div>
+                    </div>
+                    <x-import component-from-global-scope="PinhalenseDesignSystem_74ee66.Button" variant="primary" size="sm" on-click="{{ r.onOpen }}" hint-size="auto,38px" style="flex-shrink:0">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="margin-right:6px"><path d="M12 3v11m0 0l4-4m-4 4l-4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M5 19h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>Baixar
+                    </x-import>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ noResults }}">
+              <div style="text-align:center;padding:56px 20px;color:var(--text-muted)">
+                <div style="width:72px;height:72px;border-radius:999px;background:var(--cinza-2);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;color:var(--cinza-texto)"><svg width="30" height="30" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg></div>
+                <div style="font-size:20px;font-weight:700;color:var(--text-strong)">Nenhum manual encontrado</div>
+                <p style="margin:8px auto 22px;max-width:380px;font-size:14px;line-height:1.6">Não encontramos manuais para “{{ queryText }}”. Verifique a ortografia ou tente outro termo.</p>
+                <x-import component-from-global-scope="PinhalenseDesignSystem_74ee66.Button" variant="outline" on-click="{{ clearSearch }}" hint-size="auto,45px">Limpar busca</x-import>
+              </div>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <!-- HOME BROWSE -->
+        <sc-if value="{{ showHomeBrowse }}">
+          <div style="{{ sectionWrap }}">
+            <sc-if value="{{ recentVisible }}">
+              <div style="margin-bottom:40px">
+                <x-import component-from-global-scope="PinhalenseDesignSystem_74ee66.SectionLabel" tone="brand" hint-size="auto,16px">Baixados recentemente</x-import>
+                <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px">
+                  <sc-for list="{{ recent }}" as="rc" hint-placeholder-count="2">
+                    <button onClick="{{ rc.onOpen }}" style="display:flex;align-items:center;gap:11px;background:#fff;border:1px solid var(--cinza-3);border-radius:10px;padding:10px 14px;cursor:pointer;font-family:var(--font-sans);text-align:left;max-width:280px" style-hover="box-shadow:var(--shadow-soft);border-color:var(--cinza-borda)">
+                      <span style="width:32px;height:32px;border-radius:8px;background:rgba(112,29,70,.08);color:var(--vermelho);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M7 3h7l5 5v12a1 1 0 01-1 1H7a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" strokeWidth="1.7" fill="none"/><path d="M14 3v5h5" stroke="currentColor" strokeWidth="1.7" fill="none"/></svg></span>
+                      <span style="min-width:0"><span style="display:block;font-size:13px;font-weight:700;color:var(--text-strong);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ rc.title }}</span><span style="display:block;font-size:11px;color:var(--text-muted)">baixar novamente</span></span>
+                    </button>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+            <x-import component-from-global-scope="PinhalenseDesignSystem_74ee66.SectionLabel" tone="brand" hint-size="auto,16px">Nossas culturas</x-import>
+            <h2 style="{{ sectionH2 }}">Selecione a cultura</h2>
+            <p style="margin:8px 0 0;font-size:15px;color:var(--text-muted);max-width:560px">Escolha a cultura para ver as categorias de máquinas e baixar seus manuais.</p>
+
+            <div style="{{ cultureGrid }}">
+              <sc-for list="{{ cultures }}" as="c" hint-placeholder-count="4">
+                <x-import component-from-global-scope="PinhalenseDesignSystem_74ee66.ImageCard" image="{{ c.image }}" title="{{ c.title }}" caption="{{ c.caption }}" badge="{{ c.badge }}" height="{{ c.height }}" on-click="{{ c.onOpen }}" style="cursor:pointer" hint-size="100%,320px"></x-import>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- INNER BROWSE (category / product lists) -->
+        <sc-if value="{{ showInnerBrowse }}">
+          <div style="{{ sectionWrap }}">
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <sc-for list="{{ rows }}" as="row" hint-placeholder-count="4">
+                <sc-if value="{{ row.isCat }}">
+                  <div onClick="{{ row.onOpen }}" style="display:flex;align-items:center;gap:18px;background:#fff;border:1px solid var(--cinza-3);border-radius:10px;padding:18px 22px;cursor:pointer;transition:box-shadow .2s,transform .15s,border-color .2s" style-hover="box-shadow:var(--shadow-card);transform:translateX(4px);border-color:#fff">
+                    <div style="width:46px;height:46px;border-radius:10px;background:rgba(112,29,70,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--vermelho)">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 7a2 2 0 012-2h3.5l2 2H19a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" stroke="currentColor" strokeWidth="1.7" fill="none"/></svg>
+                    </div>
+                    <div style="flex:1;min-width:0">
+                      <div style="font-size:18px;font-weight:700;color:var(--text-strong)">{{ row.title }}</div>
+                      <div style="font-size:13px;color:var(--text-muted);margin-top:2px">{{ row.sub }}</div>
+                    </div>
+                    <span style="color:var(--cinza-texto);display:inline-flex;flex-shrink:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ row.isLeaf }}">
+                  <div style="display:flex;align-items:center;gap:18px;background:#fff;border:1px solid var(--cinza-3);border-radius:10px;padding:16px 18px;flex-wrap:wrap">
+                    <div style="width:50px;height:50px;border-radius:10px;background:rgba(112,29,70,.08);color:var(--vermelho);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M7 3h7l5 5v12a1 1 0 01-1 1H7a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" strokeWidth="1.7" fill="none"/><path d="M14 3v5h5" stroke="currentColor" strokeWidth="1.7" fill="none"/></svg>
+                    </div>
+                    <div style="flex:1;min-width:160px">
+                      <div style="font-size:17px;font-weight:700;color:var(--text-strong)">{{ row.title }}</div>
+                      <div style="font-size:13px;color:var(--text-muted);margin-top:3px">{{ row.meta }}</div>
+                    </div>
+                    <x-import component-from-global-scope="PinhalenseDesignSystem_74ee66.Button" variant="primary" size="sm" on-click="{{ row.onOpen }}" hint-size="auto,38px" style="flex-shrink:0">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="margin-right:6px"><path d="M12 3v11m0 0l4-4m-4 4l-4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M5 19h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>Baixar manual
+                    </x-import>
+                  </div>
+                </sc-if>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+      </main>
+
+      <!-- FOOTER -->
+      <footer style="margin-top:64px;border-top:1px solid var(--cinza-3);background:#fff">
+        <div style="{{ footerContent }}">
+          <span>© 2026 Pinhalense Máquinas Agrícolas · Central de Manuais</span>
+          <span>Precisa de ajuda? <a href="#" onClick="{{ noop }}" style="color:var(--vermelho);text-decoration:none;font-weight:600">Fale com o pós-venda</a></span>
+        </div>
+      </footer>
+    </div>
+  </sc-if>
+
+  <!-- TOAST -->
+  <sc-if value="{{ toastVisible }}">
+    <div style="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:var(--preto);color:#fff;padding:14px 22px;border-radius:10px;box-shadow:var(--shadow-strong);display:flex;align-items:center;gap:12px;font-size:14px;font-family:var(--font-sans);z-index:60;animation:fadeUp .25s ease;max-width:90vw">
+      <span style="color:#fff;display:inline-flex;background:var(--vermelho);border-radius:999px;width:22px;height:22px;align-items:center;justify-content:center;flex-shrink:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+      <span>{{ toast }}</span>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:880},&quot;accent&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;#701D46&quot;,&quot;#801F24&quot;,&quot;#57171A&quot;],&quot;default&quot;:&quot;#701D46&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;startAtHome&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;demoEmail&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      width: (typeof window !== 'undefined' ? window.innerWidth : 1280),
+      screen: 'login',
+      email: '',
+      emailError: '',
+      sending: false,
+      path: [],
+      query: '',
+      debouncedQuery: '',
+      searching: false,
+      toast: null,
+      recent: [],
+    };
+    this._onResize = () => this.setState({ width: window.innerWidth });
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this._onResize);
+    const p = this.props || {};
+    if (p.startAtHome) {
+      this.setState({ screen: 'app', email: p.demoEmail || 'tecnico@fazenda.com.br' });
+    } else if (p.demoEmail) {
+      this.setState({ email: p.demoEmail });
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._onResize);
+    clearTimeout(this._deb); clearTimeout(this._auth);
+    clearTimeout(this._send); clearTimeout(this._toast);
+  }
+
+  // ---------- catalogue ----------
+  get catalog() {
+    if (!this._cat) this._cat = this.buildCatalog();
+    return this._cat;
+  }
+
+  buildCatalog() {
+    const m = (id, label, version, size, year) => ({ id, label, version, size, year });
+    return [
+      {
+        id: 'cafe', label: 'Café', image: 'assets/images/grains-seeds.jpg',
+        caption: 'Colheita, beneficiamento e secagem em todo o ciclo do café.',
+        children: [
+          { id: 'colheitadeiras', label: 'Colheitadeiras', children: [
+            m('p1000-evolution', 'P1000 TR Evolution', 'v4.2', '8.4 MB', 2024),
+            m('p1000-smart', 'P1000 TR Smart', 'v3.1', '7.1 MB', 2023),
+            m('k3-master', 'K3 Master Autopropelida', 'v2.0', '6.8 MB', 2022),
+          ] },
+          { id: 'beneficiamento', label: 'Beneficiamento de Café', children: [
+            m('drc-2', 'Descascador DRC-2', 'v1.4', '3.2 MB', 2023),
+            m('catador-visione', 'Catador Eletrônico Visione', 'v2.1', '5.0 MB', 2024),
+            m('lsc-500', 'Lavador-Separador LSC-500', 'v1.0', '2.6 MB', 2021),
+          ] },
+          { id: 'secadores', label: 'Secadores', children: [
+            m('sre-40', 'Secador Rotativo SRE-40', 'v3.0', '4.4 MB', 2023),
+            m('scv-30', 'Secador de Coluna SCV-30', 'v2.2', '3.9 MB', 2022),
+          ] },
+          { id: 'trituradores', label: 'Trituradores Agrícolas', children: [
+            m('tf-200', 'Triturador Florestal TF-200', 'v1.2', '2.1 MB', 2022),
+            m('tpl-140', 'Triturador TPL-140', 'v1.0', '1.8 MB', 2020),
+          ] },
+        ],
+      },
+      {
+        id: 'cacau', label: 'Cacau', image: 'assets/images/coffee-field.jpg',
+        caption: 'Quebra, despolpa e secagem para o processamento do cacau.',
+        children: [
+          { id: 'processamento-cacau', label: 'Processamento', children: [
+            m('qc-2', 'Quebrador de Cacau QC-2', 'v1.1', '2.0 MB', 2022),
+            m('dp-5', 'Despolpadora DP-5', 'v1.3', '2.4 MB', 2023),
+          ] },
+          { id: 'secadores-cacau', label: 'Secadores', children: [
+            m('ssh-12', 'Secador Solar Híbrido SSH-12', 'v1.0', '1.9 MB', 2021),
+          ] },
+        ],
+      },
+      {
+        id: 'cereais', label: 'Cereais', image: 'assets/images/agriculture.jpg',
+        caption: 'Limpeza, classificação e armazenagem de grãos e cereais.',
+        children: [
+          { id: 'limpeza', label: 'Limpeza e Seleção', children: [
+            m('mlc-3', 'Máquina de Limpeza MLC-3', 'v2.0', '3.0 MB', 2023),
+            m('cg-10', 'Classificadora Granulométrica CG-10', 'v1.5', '2.7 MB', 2022),
+          ] },
+          { id: 'armazenagem', label: 'Armazenagem', children: [
+            m('ec-12', 'Elevador de Canecas EC-12', 'v1.0', '1.6 MB', 2020),
+          ] },
+        ],
+      },
+      {
+        id: 'pimenta', label: 'Pimenta', image: 'assets/images/work-culture.png',
+        caption: 'Debulha e separação para o beneficiamento da pimenta.',
+        children: [
+          { id: 'processamento-pimenta', label: 'Processamento', children: [
+            m('dbp-2', 'Debulhadora de Pimenta DBP-2', 'v1.2', '2.2 MB', 2022),
+            m('sd-4', 'Separador Densimétrico SD-4', 'v1.1', '2.0 MB', 2021),
+          ] },
+        ],
+      },
+    ];
+  }
+
+  getNode(path) {
+    let n = { children: this.catalog };
+    for (const id of path) {
+      n = (n.children || []).find((c) => c.id === id);
+      if (!n) return { children: [] };
+    }
+    return n || { children: [] };
+  }
+
+  countLeaves(node) {
+    if (!node || !node.children) return 1;
+    return node.children.reduce((a, c) => a + this.countLeaves(c), 0);
+  }
+
+  trailFor(path) {
+    let acc = []; const out = [];
+    path.forEach((id) => { acc = [...acc, id]; out.push(this.getNode(acc).label); });
+    return out;
+  }
+
+  subFor(node) {
+    if (!node || !node.children) return '';
+    const isCulture = node.children[0] && node.children[0].children;
+    const leaves = this.countLeaves(node);
+    return isCulture
+      ? node.children.length + ' categorias · ' + leaves + ' manuais'
+      : leaves + (leaves === 1 ? ' manual disponível' : ' manuais disponíveis');
+  }
+
+  buildCrumbs(path) {
+    const cr = [{
+      label: 'Início', onClick: () => this.navTo([]),
+      clickable: path.length > 0, plain: path.length === 0, showSep: false,
+    }];
+    let acc = [];
+    path.forEach((id, i) => {
+      acc = [...acc, id];
+      const snap = acc.slice();
+      const last = i === path.length - 1;
+      cr.push({ label: this.getNode(snap).label, onClick: () => this.navTo(snap), clickable: !last, plain: last, showSep: true });
+    });
+    return cr;
+  }
+
+  leaves() {
+    const out = [];
+    this.catalog.forEach((cu) => (cu.children || []).forEach((cat) => (cat.children || []).forEach((p) => {
+      out.push(Object.assign({}, p, { trail: [cu.label, cat.label] }));
+    })));
+    return out;
+  }
+
+  norm(s) { return (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); }
+
+  // ---------- navigation ----------
+  navTo(p) {
+    clearTimeout(this._deb);
+    this.setState({ path: p, query: '', debouncedQuery: '', searching: false });
+    if (typeof window !== 'undefined') window.scrollTo({ top: 0 });
+  }
+  onBack() { this.navTo(this.state.path.slice(0, -1)); }
+  goHome() { this.navTo([]); }
+  logout() {
+    clearTimeout(this._deb);
+    this.setState({ screen: 'login', path: [], query: '', debouncedQuery: '', searching: false });
+  }
+
+  // ---------- search ----------
+  onSearch(e) {
+    const v = e.target.value;
+    this.setState({ query: v, searching: v.trim() !== '' });
+    clearTimeout(this._deb);
+    this._deb = setTimeout(() => this.setState({ debouncedQuery: v, searching: false }), 300);
+  }
+  clearSearch() {
+    clearTimeout(this._deb);
+    this.setState({ query: '', debouncedQuery: '', searching: false });
+  }
+
+  // ---------- auth ----------
+  onEmail(e) { this.setState({ email: e.target.value, emailError: '' }); }
+  onEmailKey(e) { if (e.key === 'Enter') this.onSendLink(); }
+  onSendLink() {
+    const em = this.state.email.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) {
+      this.setState({ emailError: 'Informe um e-mail válido.' });
+      return;
+    }
+    this.setState({ sending: true });
+    clearTimeout(this._send);
+    this._send = setTimeout(() => this.setState({ screen: 'checkEmail', sending: false }), 900);
+  }
+  onResend() {
+    this.setState({ toast: 'Link reenviado para ' + (this.state.email || 'seu e-mail') });
+    clearTimeout(this._toast);
+    this._toast = setTimeout(() => this.setState({ toast: null }), 2600);
+  }
+  onOpenLink() {
+    this.setState({ screen: 'authenticating' });
+    clearTimeout(this._auth);
+    this._auth = setTimeout(() => this.setState({ screen: 'app', path: [], query: '', debouncedQuery: '' }), 1700);
+  }
+  onBackToLogin() { this.setState({ screen: 'login' }); }
+
+  // ---------- download ----------
+  download(node, trail) {
+    const name = this.norm(node.label).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') + '-manual.pdf';
+    const blob = this.makePdf(node.label, trail.join('  >  '), node);
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = name;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+    const entry = { id: node.id, title: node.label, onOpen: () => this.download(node, trail) };
+    const recent = [entry].concat(this.state.recent.filter((r) => r.id !== node.id)).slice(0, 4);
+    this.setState({ recent, toast: 'Manual baixado · ' + name });
+    clearTimeout(this._toast);
+    this._toast = setTimeout(() => this.setState({ toast: null }), 2800);
+  }
+
+  makePdf(title, subtitle, node) {
+    const ascii = (s) => String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const esc = (s) => ascii(s).replace(/\\/g, '\\\\').replace(/\(/g, '\\(').replace(/\)/g, '\\)');
+    const meta = 'PDF ' + (node.version || '') + '  -  ' + (node.size || '') + '  -  ' + (node.year || '');
+    const stream =
+      'BT 0.44 0.11 0.27 rg /F1 30 Tf 56 745 Td (' + esc(title) + ') Tj ET\n' +
+      'BT 0.33 0.34 0.36 rg /F1 13 Tf 56 712 Td (' + esc(subtitle) + ') Tj ET\n' +
+      'BT 0 0 0 rg /F1 11 Tf 56 668 Td (Manual de operacao e manutencao) Tj ET\n' +
+      'BT 0.33 0.34 0.36 rg /F1 10 Tf 56 650 Td (' + esc(meta) + ') Tj ET\n' +
+      'BT 0 0 0 rg /F1 10 Tf 56 110 Td (Pinhalense Maquinas Agricolas - Central de Manuais) Tj ET';
+    const objs = [
+      '<< /Type /Catalog /Pages 2 0 R >>',
+      '<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
+      '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>',
+      '<< /Length ' + stream.length + ' >>\nstream\n' + stream + '\nendstream',
+      '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>',
+    ];
+    let body = '%PDF-1.4\n';
+    const offs = [];
+    objs.forEach((o, i) => { offs.push(body.length); body += (i + 1) + ' 0 obj\n' + o + '\nendobj\n'; });
+    const xrefPos = body.length;
+    let xref = 'xref\n0 ' + (objs.length + 1) + '\n0000000000 65535 f \n';
+    offs.forEach((o) => { xref += ('' + o).padStart(10, '0') + ' 00000 n \n'; });
+    const trailer = 'trailer\n<< /Size ' + (objs.length + 1) + ' /Root 1 0 R >>\nstartxref\n' + xrefPos + '\n%%EOF';
+    return new Blob([body + xref + trailer], { type: 'application/pdf' });
+  }
+
+  // ---------- render ----------
+  renderVals() {
+    const s = this.state;
+    const w = s.width;
+    const isMobile = w < 760;
+    const accent = (this.props && this.props.accent) || '#701D46';
+
+    const showLogin = s.screen === 'login';
+    const showCheck = s.screen === 'checkEmail';
+    const showAuth = s.screen === 'authenticating';
+    const showApp = s.screen === 'app';
+
+    const node = this.getNode(s.path);
+    const isHome = s.path.length === 0;
+    const isInner = !isHome;
+    const hasQuery = s.query.trim() !== '';
+
+    const showResults = showApp && hasQuery;
+    const showHomeBrowse = showApp && isHome && !hasQuery;
+    const showInnerBrowse = showApp && isInner && !hasQuery;
+
+    const cultures = this.catalog.map((cu) => ({
+      title: cu.label, caption: cu.caption, image: cu.image,
+      badge: this.countLeaves(cu) + ' manuais', height: 320,
+      onOpen: () => this.navTo([cu.id]),
+    }));
+
+    let rows = [];
+    if (isInner) {
+      rows = (node.children || []).map((ch) => {
+        if (ch.children) {
+          return { isCat: true, isLeaf: false, title: ch.label, sub: this.countLeaves(ch) + ' manuais', onOpen: () => this.navTo([...s.path, ch.id]) };
+        }
+        const trail = this.trailFor(s.path);
+        return { isCat: false, isLeaf: true, title: ch.label, meta: 'PDF · ' + ch.version + ' · ' + ch.size + ' · ' + ch.year, onOpen: () => this.download(ch, trail) };
+      });
+    }
+
+    const crumbs = this.buildCrumbs(s.path);
+    const currentLabel = isInner ? node.label : '';
+    const currentSub = this.subFor(node);
+
+    const q = s.debouncedQuery.trim();
+    let results = [];
+    if (q) {
+      const nq = this.norm(q);
+      results = this.leaves()
+        .filter((l) => this.norm(l.label).includes(nq) || this.norm(l.trail.join(' ')).includes(nq))
+        .map((l) => ({ title: l.label, path: l.trail.join(' › '), meta: 'PDF · ' + l.version + ' · ' + l.size + ' · ' + l.year, onOpen: () => this.download(l, l.trail) }));
+    }
+    const searching = s.searching;
+    const hasResults = !searching && q !== '' && results.length > 0;
+    const noResults = !searching && q !== '' && results.length === 0;
+    const cnt = results.length;
+    const resultsHeading = searching
+      ? 'Buscando…'
+      : cnt + (cnt === 1 ? ' manual encontrado' : ' manuais encontrados') + ' para “' + s.query.trim() + '”';
+
+    const recent = s.recent;
+    const recentVisible = recent.length > 0;
+
+    const displayEmail = s.email || 'tecnico@pinhalense.com.br';
+    const initials = (displayEmail.trim()[0] || 'U').toUpperCase();
+
+    const gx = isMobile ? '18px' : '40px';
+    const container = 'max-width:1170px;margin:0 auto;padding:0 ' + gx + ';box-sizing:border-box;width:100%';
+
+    const rootVars = 'font-family:var(--font-sans);min-height:100vh;' +
+      '--vermelho:' + accent + ';--vinho:' + accent + ';--vermelho-rgb:112,29,70;' +
+      '--action-primary:' + accent + ';--text-brand:' + accent + ';--text-eyebrow:' + accent + ';--accent-rule:' + accent + ';';
+
+    return {
+      // flags
+      showLogin, showCheck, showAuth, showApp,
+      isHome, isInner, isMobile, notMobile: !isMobile,
+      showResults, showHomeBrowse, showInnerBrowse,
+      brandVisible: !isMobile,
+      hasQuery, searching, hasResults, noResults, recentVisible,
+      // data
+      email: s.email, emailError: s.emailError, hasEmailError: !!s.emailError, displayEmail, initials,
+      sending: s.sending, sendLabel: s.sending ? 'Enviando…' : 'Enviar link de acesso',
+      query: s.query, queryText: s.query.trim(),
+      cultures, rows, crumbs, currentLabel, currentSub,
+      results, resultsHeading, recent,
+      toast: s.toast, toastVisible: !!s.toast,
+      // handlers
+      onEmail: (e) => this.onEmail(e),
+      onEmailKey: (e) => this.onEmailKey(e),
+      onSendLink: () => this.onSendLink(),
+      onOpenLink: () => this.onOpenLink(),
+      onResend: () => this.onResend(),
+      onBackToLogin: () => this.onBackToLogin(),
+      onSearch: (e) => this.onSearch(e),
+      clearSearch: () => this.clearSearch(),
+      onBack: () => this.onBack(),
+      goHome: () => this.goHome(),
+      logout: () => this.logout(),
+      noop: (e) => { if (e && e.preventDefault) e.preventDefault(); },
+      // styles
+      rootVars,
+      loginWrap: 'min-height:100vh;display:flex;' + (isMobile ? 'flex-direction:column;' : '') + 'font-family:var(--font-sans)',
+      emailInputStyle: 'height:50px;padding:0 16px;border-radius:10px;border:1px solid ' + (s.emailError ? 'var(--tijolo)' : 'var(--cinza-borda)') + ';outline:none;background:var(--surface-faint);font-family:var(--font-sans);font-size:16px;color:var(--text-strong);width:100%;box-sizing:border-box',
+      headerInner: 'max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:' + (isMobile ? '64px' : '80px') + ';padding:0 ' + gx + ';box-sizing:border-box',
+      heroStyle: 'position:relative;overflow:hidden;background:url(assets/images/machine-card.png) center 32%/cover no-repeat',
+      heroContent: 'position:relative;z-index:2;max-width:1170px;margin:0 auto;padding:' + (isMobile ? '52px 18px 46px' : '78px 40px 66px') + ';box-sizing:border-box;width:100%',
+      h1Hero: 'margin:14px 0 0;color:#fff;font-weight:400;line-height:1.1;max-width:640px;font-size:' + (isMobile ? '27px' : '42px') + ';text-wrap:balance',
+      heroP: 'margin:14px 0 28px;color:rgba(255,255,255,.9);max-width:540px;line-height:1.55;font-size:' + (isMobile ? '15px' : '18px'),
+      heroSearchWrap: 'max-width:620px',
+      subheadContent: 'max-width:1170px;margin:0 auto;padding:' + (isMobile ? '26px 18px 28px' : '30px 40px 32px') + ';box-sizing:border-box;width:100%',
+      innerHeadRow: 'display:flex;align-items:flex-end;justify-content:space-between;gap:20px;' + (isMobile ? 'flex-direction:column;align-items:stretch' : 'flex-wrap:wrap'),
+      innerTitle: 'margin:0;font-weight:700;color:var(--text-strong);line-height:1.1;font-size:' + (isMobile ? '24px' : '30px'),
+      innerSearchWrap: isMobile ? 'width:100%' : 'flex:0 0 340px;max-width:340px;width:100%',
+      sectionWrap: container + ';padding-top:' + (isMobile ? '36px' : '48px') + ';padding-bottom:8px',
+      sectionH2: 'margin:10px 0 0;font-weight:700;color:var(--text-strong);font-size:' + (isMobile ? '22px' : '28px'),
+      cultureGrid: 'display:grid;gap:' + (isMobile ? '14px' : '20px') + ';grid-template-columns:' + (w < 760 ? '1fr' : 'repeat(2,1fr)') + ';margin-top:' + (isMobile ? '22px' : '28px'),
+      footerContent: 'max-width:1170px;margin:0 auto;padding:24px ' + gx + ';display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--text-muted);box-sizing:border-box;width:100%',
+    };
+  }
+}
+</script>
+</body>
+</html>

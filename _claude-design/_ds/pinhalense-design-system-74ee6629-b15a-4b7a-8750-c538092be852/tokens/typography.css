@@ -1,0 +1,51 @@
+/* ============================================================
+   Pinhalense — Typography tokens
+   Single family: Montserrat (brand directive — all text).
+   Scale derived from the marketing site's heading/body sizes.
+   ============================================================ */
+
+:root {
+  /* Families */
+  --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-display: var(--font-sans);
+  --font-body: var(--font-sans);
+
+  /* Weights */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+
+  /* ---- Type scale (px) ---- */
+  --fs-eyebrow: 12px;   /* uppercase section labels */
+  --fs-caption: 13px;   /* footer / fine print */
+  --fs-small: 14px;
+  --fs-body: 16px;      /* default body */
+  --fs-lead: 18px;      /* intro paragraphs */
+  --fs-card-title: 24px;
+  --fs-h3: 28px;
+  --fs-h2: 32px;        /* section titles */
+  --fs-h1: 40px;        /* page hero */
+  --fs-display: 52px;   /* big statement */
+
+  /* ---- Line heights ---- */
+  --lh-tight: 1.0;      /* @kind font */
+  --lh-snug: 1.05;      /* @kind font */
+  --lh-heading: 1.15;   /* @kind font */
+  --lh-body: 1.625;     /* @kind font */
+
+  /* ---- Letter spacing ---- */
+  --ls-eyebrow: 0.08em; /* generous tracking on uppercase labels */
+  --ls-tight: -0.01em;
+
+  /* ============================================================
+     Semantic text roles
+     ============================================================ */
+  --text-display-size: var(--fs-display);
+  --text-h1-size: var(--fs-h1);
+  --text-h2-size: var(--fs-h2);
+  --text-card-title-size: var(--fs-card-title);
+  --text-body-size: var(--fs-body);
+  --text-eyebrow-size: var(--fs-eyebrow);
+}

@@ -1,26 +1,171 @@
 @import "tailwindcss";
 
+/* ============================================================
+   Pinhalense Design System — tokens
+   Imported from Claude Design (pinhalense-design-system).
+   Montserrat is loaded via next/font in app/layout.tsx and
+   exposed as --font-montserrat.
+   ============================================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ---- Brand primitives ---- */
+  --branco: rgb(255, 255, 255);
+  --preto: rgb(0, 0, 0);
+  --vermelho: rgb(112, 29, 70);   /* wine / primary brand */
+  --cinza-escuro: rgb(84, 86, 91);
+  --cinza-3: rgb(233, 234, 239);
+  --cinza-2: rgb(248, 248, 248);
+
+  /* ---- Extended reds ---- */
+  --vinho: rgb(112, 29, 70);
+  --tijolo: rgb(128, 31, 36);
+  --tijolo-escuro: rgb(87, 23, 26);
+
+  /* ---- Extended neutrals ---- */
+  --cinza-texto: rgb(111, 111, 111);
+  --cinza-borda: rgb(217, 217, 217);
+
+  /* ---- Surfaces ---- */
+  --surface-page: var(--branco);
+  --surface-subtle: var(--cinza-3);
+  --surface-faint: var(--cinza-2);
+  --surface-card: var(--branco);
+  --surface-inverse: var(--preto);
+  --surface-brand: var(--vermelho);
+
+  /* ---- Text ---- */
+  --text-strong: var(--preto);
+  --text-body: var(--cinza-escuro);
+  --text-muted: var(--cinza-texto);
+  --text-inverse: var(--branco);
+  --text-brand: var(--vermelho);
+  --text-eyebrow: var(--tijolo);
+
+  /* ---- Lines & borders ---- */
+  --border-hairline: var(--cinza-borda);
+  --accent-rule: var(--vermelho);
+
+  /* ---- Interactive ---- */
+  --action-primary: var(--vermelho);
+  --action-primary-hover: rgb(92, 23, 57);
+  --action-dark: var(--preto);
+  --action-dark-hover: rgb(38, 38, 38);
+
+  /* ---- Gradients ---- */
+  --gradient-hero: linear-gradient(206deg, var(--tijolo-escuro) 24%, var(--tijolo) 72%);
+  --gradient-scrim: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 100%);
+  --gradient-header: linear-gradient(180deg, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0) 100%);
+
+  /* ---- Typography ---- */
+  --font-sans: var(--font-montserrat), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-sans);
+  --font-body: var(--font-sans);
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+
+  --fs-eyebrow: 12px;
+  --fs-caption: 13px;
+  --fs-small: 14px;
+  --fs-body: 16px;
+  --fs-lead: 18px;
+  --fs-card-title: 24px;
+  --fs-h3: 28px;
+  --fs-h2: 32px;
+  --fs-h1: 40px;
+  --fs-display: 52px;
+
+  --lh-tight: 1;
+  --lh-snug: 1.05;
+  --lh-heading: 1.15;
+  --lh-body: 1.625;
+
+  --ls-eyebrow: 0.08em;
+  --ls-tight: -0.01em;
+
+  /* ---- Spacing ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 98px;
+
+  --page-gutter: 98px;
+  --content-max: 1170px;
+  --frame-width: 1366px;
+
+  /* ---- Radii ---- */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 15px;
+  --radius-pill: 999px;
+
+  --border-width: 1px;
+
+  /* ---- Shadows ---- */
+  --shadow-card: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+  --shadow-card-up: 0px -10px 20px 0px rgba(0, 0, 0, 0.2);
+  --shadow-strong: 0px 0px 20px 0px rgba(0, 0, 0, 0.5);
+  --shadow-soft: 0px 4px 14px 0px rgba(0, 0, 0, 0.08);
+
+  --rule-width: 60px;
+  --rule-height: 2px;
+
+  /* ---- Motion ---- */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 150ms;
+  --dur-base: 250ms;
+  --dur-slow: 400ms;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #fff;
+  color: var(--text-body);
+  font-family: var(--font-sans);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

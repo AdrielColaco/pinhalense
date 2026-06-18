@@ -1,0 +1,59 @@
+/* ============================================================
+   Pinhalense — Color tokens
+   Source of truth: Figma Variables ("Ungrouped" collection)
+   + recurring brand colors found across the marketing site.
+   ============================================================ */
+
+:root {
+  /* ---- Brand primitives (from Figma Variables) ---- */
+  --branco:        rgb(255, 255, 255);  /* Branco       — white */
+  --preto:         rgb(0, 0, 0);        /* Preto        — black */
+  --vermelho:      rgb(112, 29, 70);    /* Vermelho     — wine / primary brand */
+  --cinza-escuro:  rgb(84, 86, 91);     /* Cinza Escuro — body text gray */
+  --cinza-3:       rgb(233, 234, 239);  /* Cinza 3      — light surface */
+  --cinza-2:       rgb(248, 248, 248);  /* Cinza 2      — lightest surface */
+
+  /* ---- Extended brand reds (recurring across the site) ---- */
+  --vinho:         rgb(112, 29, 70);    /* alias of --vermelho, the wine accent */
+  --tijolo:        rgb(128, 31, 36);    /* brick red — eyebrow labels, accents */
+  --tijolo-escuro: rgb(87, 23, 26);     /* deep brick — hero gradient origin */
+
+  /* ---- Extended neutrals ---- */
+  --cinza-texto:   rgb(111, 111, 111);  /* muted footer / caption gray */
+  --cinza-borda:   rgb(217, 217, 217);  /* hairline borders */
+
+  /* ============================================================
+     Semantic aliases — reference these in components
+     ============================================================ */
+
+  /* Surfaces */
+  --surface-page:      var(--branco);
+  --surface-subtle:    var(--cinza-3);
+  --surface-faint:     var(--cinza-2);
+  --surface-card:      var(--branco);
+  --surface-inverse:   var(--preto);
+  --surface-brand:     var(--vermelho);
+
+  /* Text */
+  --text-strong:       var(--preto);
+  --text-body:         var(--cinza-escuro);
+  --text-muted:        var(--cinza-texto);
+  --text-inverse:      var(--branco);
+  --text-brand:        var(--vermelho);
+  --text-eyebrow:      var(--tijolo);
+
+  /* Lines & borders */
+  --border-hairline:   var(--cinza-borda);
+  --accent-rule:       var(--vermelho);   /* the 60px underline beneath eyebrows */
+
+  /* Interactive */
+  --action-primary:        var(--vermelho);
+  --action-primary-hover:  rgb(92, 23, 57);   /* darkened wine */
+  --action-dark:           var(--preto);
+  --action-dark-hover:     rgb(38, 38, 38);
+
+  /* Gradients */
+  --gradient-hero:   linear-gradient(206deg, var(--tijolo-escuro) 24%, var(--tijolo) 72%);
+  --gradient-scrim:  linear-gradient(180deg, rgba(0,0,0,0) 0%, rgb(0,0,0) 100%); /* @kind other */
+  --gradient-header: linear-gradient(180deg, rgb(0,0,0) 0%, rgba(0,0,0,0) 100%); /* @kind other */
+}
