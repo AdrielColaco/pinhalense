@@ -55,7 +55,7 @@ export const catalog: Culture[] = [
   {
     id: "cafe",
     label: "Café",
-    image: "/assets/images/grains-seeds.jpg",
+    image: "/assets/images/cultura-cafe.jpg",
     caption: "Colheita, beneficiamento e secagem em todo o ciclo do café.",
     children: [
       {
@@ -97,7 +97,7 @@ export const catalog: Culture[] = [
   {
     id: "cacau",
     label: "Cacau",
-    image: "/assets/images/coffee-field.jpg",
+    image: "/assets/images/cultura-cacau.jpg",
     caption: "Quebra, despolpa e secagem para o processamento do cacau.",
     children: [
       {
@@ -118,7 +118,7 @@ export const catalog: Culture[] = [
   {
     id: "cereais",
     label: "Cereais",
-    image: "/assets/images/agriculture.jpg",
+    image: "/assets/images/cultura-cereais.jpg",
     caption: "Limpeza, classificação e armazenagem de grãos e cereais.",
     children: [
       {
@@ -139,7 +139,7 @@ export const catalog: Culture[] = [
   {
     id: "pimenta",
     label: "Pimenta",
-    image: "/assets/images/work-culture.png",
+    image: "/assets/images/cultura-pimenta.jpg",
     caption: "Debulha e separação para o beneficiamento da pimenta.",
     children: [
       {

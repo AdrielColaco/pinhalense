@@ -8,7 +8,7 @@ import React, {
   useState,
   useSyncExternalStore,
 } from "react";
-import { Logo, Button, SectionLabel, ImageCard } from "./components/ds";
+import { Logo, Button, SectionLabel, ImageCard, LanguageSelector, type LangCode } from "./components/ds";
 import {
   catalog,
   getNode,
@@ -84,6 +84,7 @@ export default function Home() {
   const [searching, setSearching] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const [recent, setRecent] = useState<RecentEntry[]>([]);
+  const [lang, setLang] = useState<LangCode>("pt-BR");
 
   const auth = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const send = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
@@ -115,7 +116,6 @@ export default function Home() {
     if (typeof window !== "undefined") window.scrollTo({ top: 0 });
   }, []);
 
-  const onBack = () => navTo(path.slice(0, -1));
   const goHome = () => navTo([]);
   const logout = () => {
     setScreen("login");
@@ -306,7 +306,6 @@ export default function Home() {
 
   const recentVisible = recent.length > 0;
   const displayEmail = email || "tecnico@pinhalense.com.br";
-  const initials = (displayEmail.trim()[0] || "U").toUpperCase();
 
   const gx = isMobile ? "18px" : "40px";
   const container: CSS = {
@@ -488,7 +487,7 @@ export default function Home() {
             <div style={{ maxWidth: 1280, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: isMobile ? 64 : 80, padding: `0 ${gx}`, boxSizing: "border-box" }}>
               <div style={{ display: "flex", alignItems: "center", gap: 18, minWidth: 0 }}>
                 <span onClick={goHome} style={{ display: "inline-flex", cursor: "pointer" }}>
-                  <Logo color="var(--preto)" height={28} />
+                  <Logo color="var(--vinho)" height={28} />
                 </span>
                 {notMobile && (
                   <>
@@ -498,13 +497,13 @@ export default function Home() {
                 )}
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-                <div style={{ width: 36, height: 36, borderRadius: 999, background: "var(--vermelho)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 14, flexShrink: 0 }}>{initials}</div>
                 {notMobile && (
                   <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.25, marginRight: 4 }}>
                     <span style={{ fontSize: 11, color: "var(--text-muted)" }}>Conectado</span>
                     <span style={{ fontSize: 13, fontWeight: 600, color: "var(--text-strong)" }}>{displayEmail}</span>
                   </div>
                 )}
+                <LanguageSelector value={lang} onChange={setLang} compact={isMobile} />
                 <Button variant="outline" size="sm" onClick={logout}>Sair</Button>
               </div>
             </div>
@@ -553,10 +552,6 @@ export default function Home() {
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", gap: 20, alignItems: isMobile ? "stretch" : "flex-end", flexDirection: isMobile ? "column" : "row", flexWrap: isMobile ? "nowrap" : "wrap" }}>
                   <div style={{ minWidth: 0 }}>
-                    <button onClick={onBack} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "transparent", border: "none", cursor: "pointer", fontFamily: "var(--font-sans)", fontSize: 14, fontWeight: 600, color: "var(--vermelho)", padding: 0, marginBottom: 10 }}>
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                      Voltar
-                    </button>
                     <h1 style={{ margin: 0, fontWeight: 700, color: "var(--text-strong)", lineHeight: 1.1, fontSize: isMobile ? 24 : 30 }}>{currentLabel}</h1>
                     <p style={{ margin: "6px 0 0", fontSize: 14, color: "var(--text-muted)" }}>{currentSub}</p>
                   </div>

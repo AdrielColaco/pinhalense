@@ -40,3 +40,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# claude code (local, por desenvolvedor)
+.claude/settings.local.json
+
+# entregaveis gerados
+/validacao-telas-pinhalense.pdf
